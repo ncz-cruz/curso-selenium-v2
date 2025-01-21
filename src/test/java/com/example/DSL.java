@@ -1,5 +1,7 @@
 package com.example;
 
+import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,11 +24,7 @@ import org.openqa.selenium.support.ui.Select;
         return driver.findElement(By.id(id_campo)).getAttribute("value");
         }
 
-        //deprecated
-        public void  clickRadioOrBox(String id){
-            driver.findElement(By.id(id)).click();   
-        } //
-
+        
         public boolean isSelected(String id){
         return driver.findElement(By.id(id)).isSelected();
         }
@@ -59,6 +57,11 @@ import org.openqa.selenium.support.ui.Select;
         return  driver.findElement(By.tagName(tagName)).getText();
 
     }
-        
+    public String alertaObterTextoeAceita(String nome ){
+        Alert alert = driver.switchTo().alert();
+        String alertText = alert.getText();
+        Assert.assertEquals(nome, alertText);
+        alert.accept(); 
+        return alertText;
+    }
 }
-

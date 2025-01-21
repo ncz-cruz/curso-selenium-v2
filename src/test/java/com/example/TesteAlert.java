@@ -24,7 +24,7 @@ public class TesteAlert {
    }
    @After
    public void finaliza(){
-       driver.quit();
+      
    }
 
 

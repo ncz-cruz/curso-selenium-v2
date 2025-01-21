@@ -11,14 +11,14 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class TesteCadastro {
 
     private WebDriver driver;
-    private DSL dsl;
+    private CampoTreinamentoPage page;
 
    @Before
    public void inicializa(){
        driver = new FirefoxDriver();
        driver.manage().window().setSize(new Dimension(800, 800));
-       driver.get("file:///"+ System.getProperty("user.dir") + "/src/resources/componentes.html");    
-       dsl = new DSL(driver); 
+       driver.get("file:///"+ System.getProperty("user.dir") + "/src/resources/componentes.html");     
+       page = new CampoTreinamentoPage(driver);
    }
    @After
    public void finaliza(){
@@ -26,25 +26,23 @@ public class TesteCadastro {
    }
  
     @Test
-    public void testeTextField(){
-       
-        dsl.escreve("elementosForm:nome", "Jose");
-        dsl.escreve("elementosForm:sobrenome", "Eduardo"); 
-        dsl.clickRadioOrBox("elementosForm:sexo:0");
-        dsl.clickRadioOrBox("elementosForm:comidaFavorita:2");
-        dsl.comboSelect("elementosForm:escolaridade", "Superior");
-        dsl.comboSelect("elementosForm:esportes", "Corrida");
-        dsl.clickButton("elementosForm:cadastrar");
+    public void deveValidarPessoaIndecisa(){
+        page.setName("Nome");
+        page.setSurname("Sobrenome");
+        page.setSexoFeminino();
+        page.setComidaCarne();
+        page.setEscolaridade("Mestrado");
+        page.setEsportes("Corrida");
+        page.cadastrar();
    
 
-          Assert.assertTrue(dsl.getText("resultado").startsWith("Cadastrado!")); 
-          Assert.assertTrue(dsl.getText("descNome").endsWith("Jose"));
-          Assert.assertEquals("Sobrenome: Eduardo", dsl.getText("descSobrenome"));
-          Assert.assertEquals("Sexo: Masculino", dsl.getText("descSexo"));
-          Assert.assertEquals("Comida: Pizza", dsl.getText("descComida"));
-          Assert.assertEquals("Escolaridade: superior", dsl.getText("descEscolaridade"));
-          Assert.assertEquals("Esportes: Corrida", dsl.getText("descEsportes"));
-
+          Assert.assertTrue(page.obterResultado().startsWith("Cadastrado!")); 
+          Assert.assertTrue(page.obterNomeCadastro().endsWith("Nome"));
+          Assert.assertEquals("Sobrenome: Sobrenome", page.obterSobrenomeCadastro());
+          Assert.assertEquals("Sexo: Feminino", page.obterSexoCadastro());
+          Assert.assertEquals("Comida: Carne", page.obterComidaCadastro());
+          Assert.assertEquals("Escolaridade: mestrado", page.obterEscolaridadeCadastro());
+          Assert.assertEquals("Esportes: Corrida", page.obterEsportesCadastro());
           driver.quit();
        
       

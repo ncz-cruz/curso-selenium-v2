@@ -49,13 +49,13 @@ public class TesteCampoTreinamento {
 
         @Test
         public void radioInteraction(){
-         dsl.clickRadioOrBox("elementosForm:sexo:0");
+         dsl.clickButton("elementosForm:sexo:0");
          Assert.assertTrue(dsl.isSelected("elementosForm:sexo:0"));
      
          }   
            @Test
            public void boxInteraction(){
-              dsl.clickRadioOrBox("elementosForm:comidaFavorita:2");
+              dsl.clickButton("elementosForm:comidaFavorita:2");
               Assert.assertTrue(dsl.isSelected("elementosForm:comidaFavorita:2"));
             }   
 
