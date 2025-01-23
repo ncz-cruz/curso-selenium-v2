@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.example.TesteRules
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 4.695 s <<< FAILURE! - in com.example.TesteRules
-ruleName(com.example.TesteRules)  Time elapsed: 4.665 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "com.example.DSL.alertaObterTextoeAceita(String)" because "this.dsl" is null
-	at com.example.TesteRules.ruleName(TesteRules.java:37)
-
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 38.261 s - in com.example.TesteRules

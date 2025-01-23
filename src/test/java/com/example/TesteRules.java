@@ -1,10 +1,8 @@
 package com.example;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -22,6 +20,7 @@ public class TesteRules {
         driver.manage().window().setSize(new Dimension(800, 800));
         driver.get("file:///"+ System.getProperty("user.dir") + "/src/resources/componentes.html");     
         page = new CampoTreinamentoPage(driver);
+        dsl = new DSL(driver);
 
     }
     @After
@@ -32,19 +31,14 @@ public class TesteRules {
         @Test
         public void ruleName(){
            page.cadastrar();
-
-           
-            Assert.assertEquals("Nome eh obrigatorio", dsl.alertaObterTextoeAceita(null));
-                  
+           dsl.alertaObterTextoEAceita("Nome eh obrigatorio");
         }
 
         @Test
         public void rulesSurname(){
            page.setName("Jose");
            page.cadastrar();
-            Alert alert = driver.switchTo().alert();
-            Assert.assertEquals("Sobrenome eh obrigatorio", alert.getText());
-            alert.accept(); 
+           dsl.alertaObterTextoEAceita("Sobrenome eh obrigatorio");         
         }
 
         @Test
@@ -52,9 +46,7 @@ public class TesteRules {
             page.setName("Jose");
             page.setSurname("Eduardo");
             page.cadastrar();            
-            Alert alert = driver.switchTo().alert();
-            Assert.assertEquals("Sexo eh obrigatorio", alert.getText());
-            alert.accept(); 
+            dsl.alertaObterTextoEAceita("Sexo eh obrigatorio");
         }
 
         @Test
@@ -64,11 +56,10 @@ public class TesteRules {
             page.setSexoMasculino();
             page.setComidaCarne();  
             page.setComidaVeg();
-            page.cadastrar();             
-            Alert alert = driver.switchTo().alert();
-            Assert.assertEquals("Tem certeza que voce eh vegetariano?", alert.getText());
-            alert.accept(); 
-    }
+            page.cadastrar();       
+            dsl.alertaObterTextoEAceita("Tem certeza que voce eh vegetariano?");      
+        }
+
         @Test
         public void rulesSport(){
             page.setName("Jose");
@@ -78,8 +69,7 @@ public class TesteRules {
             page.setEsportes("Karate");
             page.setEsportes("O que eh esporte?");           
             page.cadastrar(); 
-            Alert alert = driver.switchTo().alert();
-            Assert.assertEquals("Voce faz esporte ou nao?", alert.getText());
-            alert.accept(); 
+            dsl.alertaObterTextoEAceita("Voce faz esporte ou nao?");
+            
         }
 }

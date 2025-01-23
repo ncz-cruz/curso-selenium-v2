@@ -1,24 +1,19 @@
 package com.example;
 
-import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 @RunWith(Parameterized.class)
 public class TesteRulesCadastro {
@@ -46,8 +41,8 @@ public class TesteRulesCadastro {
        driver = new FirefoxDriver();
        driver.manage().window().setSize(new Dimension(800, 800));
        driver.get("file:///"+ System.getProperty("user.dir") + "/src/resources/componentes.html");     
-       dsl = new DSL(driver);
        page = new CampoTreinamentoPage(driver);
+       dsl = new DSL(driver);
    }
    @After
    public void finaliza(){
@@ -75,16 +70,11 @@ public class TesteRulesCadastro {
             page.setSexoFeminino();
         }   
         if (comidas.contains("Carne")) page.setComidaCarne();
-        if (comidas.contains("Vegetariana")) page.setComidaVeg();
+        if (comidas.contains("Vegetariano")) page.setComidaVeg();
         page.setEsportes(esportes);
-        page.cadastrar(); 
-       
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
-        Assert.assertEquals(msg, alert.getText());
-        alert.accept(); 
-       
-    
+        page.cadastrar();
+        dsl.alertaObterTextoEAceita(msg);
+        
             
     }
 

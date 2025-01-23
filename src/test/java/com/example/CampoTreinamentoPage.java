@@ -10,10 +10,10 @@ public class CampoTreinamentoPage {
     }
     
     public void setName(String nome){
-        dsl.escreve("elementosForm:nome", nome);
+        dsl.escrevePorId("elementosForm:nome", nome);
     }
     public void setSurname(String nome){
-        dsl.escreve("elementosForm:sobrenome", nome);
+        dsl.escrevePorId("elementosForm:sobrenome", nome);
     }
 
     public void setSexoMasculino(){
@@ -34,18 +34,18 @@ public class CampoTreinamentoPage {
      }
     public void setComidaVeg(){
         dsl.clickButton("elementosForm:comidaFavorita:3");
-     }
+     } 
  
     public void setEscolaridade(String valor){
-     dsl.comboSelect("elementosForm:escolaridade", valor);
+        dsl.comboSelect("elementosForm:escolaridade", valor);
     }
     public void setEsportes(String... valores){
        for (String valor : valores) 
-            dsl.comboSelect("elementosForm:esportes", valor);
+        dsl.comboSelect("elementosForm:esportes", valor);
     }
     
     public void cadastrar (){
-    dsl.clickButton("elementosForm:cadastrar");
+        dsl.clickButton("elementosForm:cadastrar");
     }
     public String obterResultado(){
         return dsl.getText("resultado");
