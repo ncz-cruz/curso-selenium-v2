@@ -25,7 +25,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
    public void finaliza(){
      // driver.quit();
    }
-
     @Test
     public void frameInteraction(){
       dsl.entrarFrame("frame1");
@@ -34,8 +33,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
       dsl.sairFrame();
       dsl.escrevePorTag("elementosForm:nome", "msg");
     }
-
-    @Test
+   @Test
     public void windowInteraction(){
       dsl.clickButton("buttonPopUpEasy");
       dsl.trocarJanela("Popup");
@@ -45,7 +43,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
      //Não funcionou sem handle depois do close, teria que utilizaar o JS
       driver.findElement(By.tagName("textarea")).sendKeys("E agora?");
    }
-
     @Test
     public void deveInteragirComFrameEscondida(){
       WebElement frame = driver.findElement(By.id("frame2"));
@@ -54,11 +51,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
       dsl.clickButton("frameButton");
       String msg = dsl.alertaObterTextoEAceita("Frame OK!");    
       Assert.assertEquals("Frame OK!", msg);
-
-
    }
-
-
    @Test
    public void windowHandleInteraction(){
     dsl.clickButton("buttonPopUpHard"); 
