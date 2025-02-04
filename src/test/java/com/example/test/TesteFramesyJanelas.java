@@ -25,7 +25,6 @@ import static com.example.core.DriverFactory.getDriver;
      DriverFactory.killDriver();
 
    }
-
     @Test
     public void frameInteraction(){
       dsl.entrarFrame("frame1");
@@ -34,8 +33,7 @@ import static com.example.core.DriverFactory.getDriver;
       dsl.sairFrame();
       dsl.escrevePorTag("elementosForm:nome", "msg");
     }
-
-    @Test
+   @Test
     public void windowInteraction(){
       dsl.clickButtonId("buttonPopUpEasy");
       dsl.trocarJanela("Popup");
@@ -43,7 +41,6 @@ import static com.example.core.DriverFactory.getDriver;
       dsl.trocarJanela("");
       getDriver().findElement(By.tagName("textarea")).sendKeys("E agora?");
    }
-
     @Test
     public void deveInteragirComFrameEscondida(){
       WebElement frame = getDriver().findElement(By.id("frame2"));
@@ -53,8 +50,6 @@ import static com.example.core.DriverFactory.getDriver;
       String msg = dsl.alertaObterTextoEAceita("Frame OK!");    
       Assert.assertEquals("Frame OK!", msg);
    }
-
-
    @Test
    public void windowHandleInteraction(){
     dsl.clickButtonId("buttonPopUpHard"); 
