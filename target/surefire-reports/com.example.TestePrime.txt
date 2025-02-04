@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: com.example.TesteFramesyJanelas
+Test set: com.example.TestePrime
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.633 s - in com.example.TesteFramesyJanelas
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.785 s - in com.example.TestePrime

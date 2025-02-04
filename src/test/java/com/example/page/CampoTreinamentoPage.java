@@ -1,14 +1,11 @@
-package com.example;
+package com.example.page;
 
-import org.openqa.selenium.WebDriver;
-public class CampoTreinamentoPage {
+import org.openqa.selenium.By;
+
+import com.example.core.BasePage;
+
+public class CampoTreinamentoPage extends BasePage {
   
-    private final DSL dsl;
-
-    public CampoTreinamentoPage(WebDriver driver){
-        this.dsl = new DSL(driver);
-    }
-    
     public void setName(String nome){
         dsl.escrevePorId("elementosForm:nome", nome);
     }
@@ -17,23 +14,23 @@ public class CampoTreinamentoPage {
     }
 
     public void setSexoMasculino(){
-        dsl.clickButton("elementosForm:sexo:0");
+        dsl.clickButtonId("elementosForm:sexo:0");
     }
     public void setSexoFeminino(){
-        dsl.clickButton("elementosForm:sexo:1");
+        dsl.clickButtonId("elementosForm:sexo:1");
     }
 
     public void setComidaCarne(){
-       dsl.clickButton("elementosForm:comidaFavorita:0");
+        dsl.clickButtonId("elementosForm:comidaFavorita:0");
     }
     public void setComidaFrango(){
-        dsl.clickButton("elementosForm:comidaFavorita:1");
+        dsl.clickButtonId("elementosForm:comidaFavorita:1");
      }
     public void setComidaPizza(){
-        dsl.clickButton("elementosForm:comidaFavorita:2");
+        dsl.clickButtonId("elementosForm:comidaFavorita:2");
      }
     public void setComidaVeg(){
-        dsl.clickButton("elementosForm:comidaFavorita:3");
+        dsl.clickButtonId("elementosForm:comidaFavorita:3");
      } 
  
     public void setEscolaridade(String valor){
@@ -45,28 +42,28 @@ public class CampoTreinamentoPage {
     }
     
     public void cadastrar (){
-        dsl.clickButton("elementosForm:cadastrar");
+        dsl.clickButtonId("elementosForm:cadastrar");
     }
     public String obterResultado(){
-        return dsl.getText("resultado");
+        return dsl.getByText(By.xpath("//*[@id='resultado']/span"));
     }
     public String obterNomeCadastro(){
-        return dsl.getText("descNome");
+        return dsl.getByText(By.xpath("//*[@id='descNome']/span"));
     }
     public String obterSobrenomeCadastro(){
-        return dsl.getText("descSobrenome");
+        return dsl.getByText(By.xpath("//*[@id='descSobrenome']/span"));
     }
     public String obterSexoCadastro(){
-        return dsl.getText("descSexo");
+        return dsl.getByText(By.xpath("//*[@id='descSexo']/span"));
     }
     public String obterComidaCadastro(){
-        return dsl.getText("descComida");
+        return dsl.getByText(By.xpath("//*[@id='descComida']/span"));
     }
     public String obterEscolaridadeCadastro(){
-        return dsl.getText("descEscolaridade");
+        return dsl.getByText(By.xpath("//*[@id='descEscolaridade']/span"));
     }
     public String obterEsportesCadastro(){
-        return dsl.getText("descEsportes");
+        return dsl.getByText(By.xpath("//*[@id='descEsportes']/span"));
     }
 
 }

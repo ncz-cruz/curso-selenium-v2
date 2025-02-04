@@ -1,37 +1,34 @@
-package com.example;
+package com.example.test;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+
+import com.example.core.DSL;
+import com.example.core.DriverFactory;
+import static com.example.core.DriverFactory.getDriver;
+
 
 public class TesteAlert {
      
-    
-    private WebDriver driver;
     private DSL dsl;
 
    @Before
    public void inicializa(){
-       driver = new FirefoxDriver();
-       driver.manage().window().setSize(new Dimension(800, 800));
-       driver.get("file:///"+ System.getProperty("user.dir") + "/src/resources/componentes.html"); 
-       dsl = new DSL(driver);    
+       getDriver().get("file:///"+ System.getProperty("user.dir") + "/src/resources/componentes.html"); 
+       dsl = new DSL();
    }
    @After
    public void finaliza(){
-      
+      DriverFactory.killDriver();
    }
-
 
      @Test
            public void checkAlert(){
-             dsl.clickButton("alert");
-              Alert alert = driver.switchTo().alert();
+             dsl.clickButtonId("alert");
+              Alert alert = getDriver().switchTo().alert();
               Assert.assertEquals("Alert Simples", alert.getText());
               alert.accept();
             }
@@ -39,15 +36,15 @@ public class TesteAlert {
      @Test
             public void checkAlertConfirm(){
                 //teste de OK
-                dsl.clickButton("confirm");               
-                Alert alert = driver.switchTo().alert();
+                dsl.clickButtonId("confirm");               
+                Alert alert = getDriver().switchTo().alert();
                 Assert.assertEquals("Confirm Simples", alert.getText());
                 alert.accept();
                 Assert.assertEquals("Confirmado", alert.getText());
                 alert.accept();
                 //teste de cancel
-                dsl.clickButton("confirm");                  
-                alert = driver.switchTo().alert();
+                dsl.clickButtonId("confirm");                  
+                alert = getDriver().switchTo().alert();
                 Assert.assertEquals("Confirm Simples", alert.getText());
                 alert.dismiss();
                 Assert.assertEquals("Negado", alert.getText());
@@ -56,8 +53,8 @@ public class TesteAlert {
             
             @Test
             public void checkAlertPrompt(){
-                dsl.clickButton("prompt");               
-                Alert prompt = driver.switchTo().alert();
+                dsl.clickButtonId("prompt");               
+                Alert prompt = getDriver().switchTo().alert();
                 Assert.assertEquals("Digite um numero", prompt.getText());
                 prompt.sendKeys("12");
                 prompt.accept();    

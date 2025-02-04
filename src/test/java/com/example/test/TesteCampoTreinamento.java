@@ -1,5 +1,7 @@
 
-package com.example;
+package com.example.test;
+
+import static com.example.core.DriverFactory.getDriver;
 
 import java.util.List;
 
@@ -8,32 +10,27 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+
+import com.example.core.DSL;
+import com.example.core.DriverFactory;
 
 @SuppressWarnings("deprecation")
 
 public class TesteCampoTreinamento {
 
-
-   private WebDriver driver;
    private DSL dsl;
 
    @Before
    public void inicializa(){
-       driver = new FirefoxDriver();
-       driver.manage().window().setSize(new Dimension(800, 800));
-       driver.get("file:///"+ System.getProperty("user.dir") + "/src/resources/componentes.html");     
-       dsl = new DSL(driver);
-  
+       getDriver().get("file:///"+ System.getProperty("user.dir") + "/src/resources/componentes.html");     
+       dsl = new DSL();
       }
    @After
    public void finaliza(){
-       //driver.quit();
+       DriverFactory.killDriver();
    }
 
      @Test
@@ -50,13 +47,13 @@ public class TesteCampoTreinamento {
 
         @Test
         public void radioInteraction(){
-         dsl.clickButton("elementosForm:sexo:0");
+         dsl.clickButtonId("elementosForm:sexo:0");
          Assert.assertTrue(dsl.isSelected("elementosForm:sexo:0"));
      
          }   
            @Test
            public void boxInteraction(){
-              dsl.clickButton("elementosForm:comidaFavorita:2");
+              dsl.clickButtonId("elementosForm:comidaFavorita:2");
               Assert.assertTrue(dsl.isSelected("elementosForm:comidaFavorita:2"));
             }   
 
@@ -71,7 +68,7 @@ public class TesteCampoTreinamento {
                dsl.comboSelect("elementosForm:esportes", "Corrida");
              dsl.comboSelect("elementosForm:esportes", "O que eh esporte?");
 
-             WebElement element = driver.findElement(By.id("elementosForm:esportes"));
+             WebElement element = getDriver().findElement(By.id("elementosForm:esportes"));
              Select combo = new Select(element);
              List<WebElement> allSelectedOptionss = combo.getAllSelectedOptions();
              Assert.assertEquals(3, allSelectedOptionss.size());
@@ -82,15 +79,15 @@ public class TesteCampoTreinamento {
             }
             @Test
             public void buttonInteraction(){
-               dsl.clickButton("buttonSimple");
-               WebElement botao =  driver.findElement(By.id("buttonSimple"));
+               dsl.clickButtonId("buttonSimple");
+               WebElement botao =  getDriver().findElement(By.id("buttonSimple"));
                 Assert.assertEquals ("Obrigado!", botao.getAttribute("value"));
                }
 
                @Test
                public void linkInteraction(){
                  dsl.clickLink("Voltar"); 
-                  Assert.assertEquals("Voltou!", dsl.getText("resultado"));
+                  Assert.assertEquals("Voltou!", dsl.getIdText("resultado"));
                }
                
                @Test
@@ -98,21 +95,22 @@ public class TesteCampoTreinamento {
                   Assert.assertTrue(dsl.getTagText("h3").contains("Campo de Treinamento"));
                   Assert.assertEquals("Campo de Treinamento", dsl.getTagText("h3"));
                   Assert.assertEquals("Cuidado onde clica, muitas armadilhas...",
-                  driver.findElement(By.className("facilAchar")).getText());
+                  getDriver().findElement(By.className("facilAchar")).getText());
                }
 
                @Test
                public void testJavaScript(){
-                  JavascriptExecutor js = (JavascriptExecutor) driver;
+                  JavascriptExecutor js = (JavascriptExecutor) getDriver();
                   js.executeScript("document.getElementById('elementosForm:nome').value = 'Escrito via Js'");
                   js.executeScript("document.getElementById('elementosForm:sobrenome').type = 'Radio'");
 
-                  WebElement element = driver.findElement(By.id("elementosForm:nome"));
+                  WebElement element = getDriver().findElement(By.id("elementosForm:nome"));
                   js.executeScript("arguments[0].style.border = arguments [1]", element, "solid 4px purple");
                }
 
-
-
-
+               @Test
+               public void deveClicarBotao(){
+                 dsl.tabelaClickButton("Escolaridade", "Doutorado", "Botao", "//*[@id='elementosForm:tableUsuarios']");
+               }
 
    }   

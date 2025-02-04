@@ -1,24 +1,25 @@
-package com.example;
+package com.example.test;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+
+import com.example.core.BaseTest;
+import com.example.core.DSL;
+import static com.example.core.DriverFactory.getDriver;
+import com.example.page.CampoTreinamentoPage;
+
 
 @RunWith(Parameterized.class)
-public class TesteRulesCadastro {
+public class TesteRulesCadastro extends BaseTest{
 
-    private WebDriver driver;
     private CampoTreinamentoPage page;
     private DSL dsl;
 
@@ -38,16 +39,11 @@ public class TesteRulesCadastro {
 
    @Before
    public void inicializa(){
-       driver = new FirefoxDriver();
-       driver.manage().window().setSize(new Dimension(800, 800));
-       driver.get("file:///"+ System.getProperty("user.dir") + "/src/resources/componentes.html");     
-       page = new CampoTreinamentoPage(driver);
-       dsl = new DSL(driver);
+       getDriver().get("file:///"+ System.getProperty("user.dir") + "/src/resources/componentes.html");     
+       page = new CampoTreinamentoPage();
+       dsl = new DSL();
    }
-   @After
-   public void finaliza(){
-       driver.quit();
-   }
+   
     @Parameters
    public static Collection<Object[]> getCollection(){
     return Arrays.asList(new Object [][]{
